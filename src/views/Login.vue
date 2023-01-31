@@ -26,6 +26,7 @@
 
 import { ipcRenderer } from 'electron'
 import { mapMutations } from 'vuex'
+import { minix } from '../functions/alertas'
 
 export default {
     name: 'Login',
@@ -50,7 +51,7 @@ export default {
                     this.set_auth(true)
                     this.$router.replace('inicio')
                 }else{
-                    console.log(arg)
+                    minix({icon: 'error', mensaje: arg.message, tiempo: 6000})
                 }
 
             })
