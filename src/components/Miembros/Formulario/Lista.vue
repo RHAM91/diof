@@ -1,6 +1,6 @@
 <template>
     <h1>
-        Formulario
+        Lista
     </h1>
 </template>
 

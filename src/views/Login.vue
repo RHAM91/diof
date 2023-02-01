@@ -32,8 +32,8 @@ export default {
     name: 'Login',
     data() {
         return {
-            usuario: '',
-            pass: ''
+            usuario: 'daru',
+            pass: '124578asd'
         }
     },
     methods: {

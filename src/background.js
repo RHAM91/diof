@@ -3,13 +3,14 @@
 import { app, protocol, BrowserWindow, ipcMain, dialog } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
-const isDevelopment = process.env.NODE_ENV !== 'production'
 import { autoUpdater } from 'electron-updater'
-const path = require('path')
 import fs from 'fs'
-const sha1 = require('sha1')
 import { dbs } from './functions/c'
 import { login } from './functions/autenticacion'
+const isDevelopment = process.env.NODE_ENV !== 'production'
+const path = require('path')
+const sha1 = require('sha1')
+const miembros = require('./functions/miembros.controller')
 
 
 let win
@@ -129,6 +130,17 @@ fs.stat(ruta_carpeta_dbs, (err, folderStat)=>{
                     exp        DATE
                 )
               `)
+
+              dbs.run(`
+                  CREATE TABLE IF NOT EXISTS miembros (
+                    id                  INTEGER       PRIMARY KEY AUTOINCREMENT,
+                    nombre              TEXT,
+                    dpi                 VARCHAR (100),
+                    fecha_de_nacimiento DATE,
+                    cargo               INTEGER,
+                    sistema             VARCHAR (50) 
+                )
+              `)
           
 
           }else{
@@ -235,6 +247,22 @@ ipcMain.on('login', async (event, args) =>{
   
 })
 
+
+ipcMain.on('miembros', async(event, args) =>{
+
+  
+
+  switch (args.accion) {
+    case 'registro':
+      let r = miembros.registro(args.data)
+      event.sender.send('miembros/res', r)
+      break;
+  
+    default:
+      break;
+  }
+
+})
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {

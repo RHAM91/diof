@@ -17,14 +17,20 @@
         </div>
 
         <div class="area">
-                
+            <Formulario />
         </div>
     </div>
 </template>
 
 <script>
+
+import Formulario from './Formulario/Formulario.vue'
+
 export default {
     name: 'MenuMiembros',
+    components:{
+        Formulario
+    },
     data() {
         return {
             
