@@ -23,15 +23,20 @@ export default new Vuex.Store({
   mutations: {
     set_auth(state, data){
       state.auth = data
-    }
+    },
   },
   actions: {
-    guardarData({commit, state, dispatch}, data){
-      ipcRenderer.send(data.api, data)
-      ipcRenderer.on(`${data.api}/res`, (event, arg)=>{
-        ipcRenderer.removeAllListeners(`${data.api}/res`)
-        minix({icon: 'success', mensaje: arg.message, tiempo: 6000})
-      })
+    async guardarData({commit, state, dispatch}, data){
+
+      let r = await ipcRenderer.invoke(data.api, data)
+      minix({icon: 'success', mensaje: r.message, tiempo: 6000})
+
+    },
+    async obtenerData({commit, state, dispatch}, data){
+
+      let r = await ipcRenderer.invoke(data.api, data)
+      return r
+
     }
   },
   plugins: [vuexPersist.plugin],

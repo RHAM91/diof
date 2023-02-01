@@ -248,16 +248,15 @@ ipcMain.on('login', async (event, args) =>{
 })
 
 
-ipcMain.on('miembros', async(event, args) =>{
-
-  
+ipcMain.handle('miembros', async(event, args)=>{
 
   switch (args.accion) {
     case 'registro':
       let r = miembros.registro(args.data)
-      event.sender.send('miembros/res', r)
-      break;
-  
+      return r
+    case 'listar':
+      let l = await miembros.buscar(args.data)
+      return l
     default:
       break;
   }

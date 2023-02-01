@@ -36,7 +36,7 @@ export default {
     },
     data() {
         return {
-            set_tab: 'registro'    
+            set_tab: 'lista'    
         }
     },
     methods: {
