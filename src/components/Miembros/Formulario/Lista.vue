@@ -3,7 +3,7 @@
         <b-row>
             <b-col sm="10">
                 <label for="">Buscar</label>
-                <b-form-input type="text" size="sm" v-model="campo_buscar"></b-form-input>
+                <b-form-input type="text" size="sm" id="campo_busqueda" v-model="campo_buscar"></b-form-input>
             </b-col>
             <b-col sm="2">
                 <b-button type="button" variant="info" style="margin-top: 32px;" block size="sm" @click="buscar">Buscar</b-button>
@@ -28,18 +28,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr v-for="(item, index) in resultados" :key="index">
                             <td>
-
+                                {{item.dpi}}
                             </td>
                             <td>
-
+                                {{item.nombre}}
                             </td>
                             <td>
-
+                                {{item.cargo}}
                             </td>
                             <td style="text-align: center;">
-
+                                <b-button type="button" style="font-size: 9px;" variant="primary" size="sm"><i class="fas fa-pen"></i></b-button>
                             </td>
                         </tr>
                     </tbody>
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import { minix } from '@/functions/alertas'
 import { mapActions } from 'vuex'
 export default {
     name: 'ListaMiembros',
@@ -61,16 +62,23 @@ export default {
     },
     methods: {
         async buscar(){
-            let f = {
-                api: 'miembros',
-                accion: 'listar',
-                data: {
-                    buscar: this.campo_buscar.trim()
+
+            if (this.campo_buscar == '' || this.campo_buscar == null || this.campo_buscar == undefined) {
+                minix({icon: 'error', mensaje: 'INGRESA UN VALOR PARA BUSCAR', tiempo: 3000})
+                document.getElementById('campo_busqueda').select()
+            }else{
+                let f = {
+                    api: 'miembros',
+                    accion: 'listar',
+                    data: {
+                        buscar: this.campo_buscar.trim()
+                    }
                 }
+    
+                let r = await this.obtenerData(f)
+                this.resultados = r
             }
 
-            let r = await this.obtenerData(f)
-            console.log(r)
         },
         ...mapActions(['obtenerData'])
     },

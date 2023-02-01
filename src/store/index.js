@@ -29,13 +29,18 @@ export default new Vuex.Store({
     async guardarData({commit, state, dispatch}, data){
 
       let r = await ipcRenderer.invoke(data.api, data)
-      minix({icon: 'success', mensaje: r.message, tiempo: 6000})
+      minix({icon: 'success', mensaje: r.message, tiempo: 3000})
 
     },
     async obtenerData({commit, state, dispatch}, data){
 
       let r = await ipcRenderer.invoke(data.api, data)
-      return r
+      if (r.length == 0) {
+        minix({icon: 'info', mensaje: 'NO HAY REGISTROS', tiempo: 3000})
+      }else{
+        return r
+      }
+
 
     }
   },
