@@ -37,6 +37,7 @@ function insertar__(obj){
 }
 
 
+
 let leer__ = (consulta, args) =>{
     return new Promise((resolve, reject) =>{
       if(consulta == '' || consulta == null || consulta == undefined){
@@ -52,12 +53,12 @@ let leer__ = (consulta, args) =>{
   }
 
 
-  let ejecutar__ = (sql) =>{
+  let ejecutar__ = (sql, args) =>{
     return new Promise((resolve, reject) =>{
       if(sql == '' || sql == null || sql == undefined){
         reject('Debes escribir una sql')
       }else{
-        dbs.run(sql)
+        dbs.run(sql, args)
         
         resolve('SE HA EJECUTADO CONSULTA CORRECTAMENTE')
         

@@ -257,6 +257,12 @@ ipcMain.handle('miembros', async(event, args)=>{
     case 'listar':
       let l = await miembros.buscar(args.data)
       return l
+    case 'actualizar':
+      let a = await miembros.actualizar(args)
+      return a
+    case 'borrar':
+      let b = await miembros.borrar(args.data)
+      return b
     default:
       break;
   }

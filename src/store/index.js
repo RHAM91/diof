@@ -40,9 +40,15 @@ export default new Vuex.Store({
       }else{
         return r
       }
-
-
-    }
+    },
+    async actualizarDatos({commit, state, dispatch}, data){
+      let r = await ipcRenderer.invoke(data.api, data)
+      minix({icon: 'info', mensaje: r.message, tiempo: 3000})
+    },
+    async borrarDatos({commit, state, dispatch}, data){
+      let r = await ipcRenderer.invoke(data.api, data)
+      minix({icon: 'info', mensaje: r.message, tiempo: 3000})
+    },
   },
   plugins: [vuexPersist.plugin],
   modules: {
