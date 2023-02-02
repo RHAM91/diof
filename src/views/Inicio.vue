@@ -8,6 +8,10 @@
                 <div class="btn_menu" @click="set_modulo('miembros')">
                     <i class="fas fa-users"></i>
                 </div>
+
+                 <div class="btn_menu logout" @click="cerrar_sesion">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
             </div>
 
             <Miembros v-if="modulo == 'miembros'" />
@@ -17,6 +21,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 
 import Miembros from '../components/Miembros/menu.vue'
 
@@ -33,7 +38,12 @@ export default {
     methods: {
         set_modulo(modulo){
             this.modulo = modulo
-        }
+        },
+        cerrar_sesion(){
+            this.set_auth(false)
+            this.$router.replace('Login')
+        },
+        ...mapMutations(['set_auth'])
     },
 }
 </script>
@@ -59,8 +69,8 @@ export default {
                 width: 45px;
                 height: 100%;
                 background-color: #23232c;
-                display: flex;
-                justify-content: center;
+                /* display: flex;
+                justify-content: center; */
                 padding-top: 8px;
             }
                 .btn_menu{
@@ -74,11 +84,20 @@ export default {
                     border-radius: 4px;
                     transition: .4s ease;
                     cursor: pointer;
+                    margin: auto;
                 }
                     .btn_menu:hover{
                         background-color: white;
                         color: black;
                     }
+
+                .logout{
+                    background-color: orangered;
+                    position: absolute;
+                    bottom: 7px;
+                    left: 6px;
+                }
+
                 .sub_menu{
                     width: 150px;
                     height: 100%;
