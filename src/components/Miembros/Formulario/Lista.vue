@@ -40,7 +40,7 @@
                             </td>
                             <td style="text-align: center;">
                                 <b-button type="button" style="font-size: 9px;margin-right: 5px;" variant="primary" size="sm" @click="editar(item)"><i class="fas fa-pen"></i></b-button>
-                                <b-button type="button" style="font-size: 9px;" variant="danger" size="sm" @click="borrar(item.dpi)"><i class="fas fa-trash"></i></b-button>
+                                <b-button type="button" style="font-size: 9px;" variant="danger" size="sm" @click="borrar(item.id)"><i class="fas fa-trash"></i></b-button>
                             </td>
                         </tr>
                     </tbody>

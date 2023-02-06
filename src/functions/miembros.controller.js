@@ -53,7 +53,7 @@ let actualizar = async (data) =>{
 
 let borrar = async(data) =>{
 
-    let r = await ejecutar__(`delete from miembros where dpi = ?`, [data.dpi])
+    let r = await ejecutar__(`delete from miembros where id = ?`, [data.dpi])
 
     return {codigo: 'OK', message: 'BORRADO'}
 
