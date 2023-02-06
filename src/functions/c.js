@@ -31,7 +31,7 @@ function insertar__(obj){
 
     dbs.run(`insert into ${obj.tabla}(${objstring}) values(${interrogaciones})`, valores__)
 
-    return {message: 'REGISTRO CORRECTO!'}
+    return {codigo: 'OK', message: 'REGISTRO CORRECTO!'}
 
     //dbs.close()
 }

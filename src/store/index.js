@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersist from 'vuex-persist'
 import { ipcRenderer } from 'electron'
-import { minix } from '@/functions/alertas'
+import { minix, pregunta } from '@/functions/alertas'
 
 Vue.use(Vuex)
 
@@ -29,7 +29,13 @@ export default new Vuex.Store({
     async guardarData({commit, state, dispatch}, data){
 
       let r = await ipcRenderer.invoke(data.api, data)
-      minix({icon: 'success', mensaje: r.message, tiempo: 3000})
+
+      if (r.codigo == 'OK') {
+        minix({icon: 'success', mensaje: r.message, tiempo: 3000})
+      }else{
+        minix({icon: 'error', mensaje: r.message, tiempo: 3000})
+      }
+
 
     },
     async obtenerData({commit, state, dispatch}, data){
@@ -46,8 +52,10 @@ export default new Vuex.Store({
       minix({icon: 'info', mensaje: r.message, tiempo: 3000})
     },
     async borrarDatos({commit, state, dispatch}, data){
+
       let r = await ipcRenderer.invoke(data.api, data)
       minix({icon: 'info', mensaje: r.message, tiempo: 3000})
+      
     },
   },
   plugins: [vuexPersist.plugin],

@@ -9,7 +9,7 @@
                 
                 <b-col sm="6" class="mt-2">
                     <label for="">DPI</label>
-                    <b-form-input type="text" v-model="dpi" size="sm"></b-form-input>
+                    <b-form-input type="number" v-model="dpi" size="sm"></b-form-input>
                 </b-col>
 
                 <b-col sm="6" class="mt-2">
@@ -55,7 +55,7 @@ export default {
                 accion: 'registro',
                 data:{
                     nombre: this.nombre,
-                    dpi: this.dpi,
+                    dpi: this.dpi.trim(),
                     fecha_de_nacimiento: this.fecha_nacimiento,
                     cargo: this.cargo
                 }

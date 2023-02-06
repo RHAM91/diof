@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { minix } from '@/functions/alertas'
+import { minix, pregunta } from '@/functions/alertas'
 import { mapActions } from 'vuex'
 
 import ModalEditar from './ModalActualizar.vue'
@@ -93,17 +93,26 @@ export default {
             }
 
         },
-        borrar(i){
-            let f = {
-                api: 'miembros',
-                accion: 'borrar',
-                data: {
-                    dpi:i
-                }
-            }
+        borrar(iz){
 
-            this.borrarDatos(f)
-            this.buscar()
+            pregunta({titulo: 'Seguro que deseas borrar?', texto: 'Esta acción no se puede revertir', afirmacion: 'Si, borrarlo!'}, async (i) =>{
+        
+                if (i) {
+                
+                    let f = {
+                        api: 'miembros',
+                        accion: 'borrar',
+                        data: {
+                            dpi:iz
+                        }
+                    }
+
+                    this.borrarDatos(f)
+                    this.buscar()
+                    
+                }
+            })
+
         },
         editar(i){
             this.obj = i

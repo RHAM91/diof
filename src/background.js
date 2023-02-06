@@ -64,7 +64,7 @@ fs.stat(ruta_carpeta_dbs, (err, folderStat)=>{
   if(err){
     if(err.code === 'ENOENT'){
 
-      console.log('[!] CARPETA NO EXISTE, CREANDOLA...')
+      console.log('[*] CARPETA NO EXISTE, CREANDOLA...')
 
       fs.mkdir(ruta_carpeta_dbs, {recursive: true}, (err)=>{
         if(err){
@@ -86,7 +86,7 @@ fs.stat(ruta_carpeta_dbs, (err, folderStat)=>{
     }
   }else{
     if(folderStat.isDirectory()){
-      console.log('[!] LA CARPETA SI EXISTE')
+      console.log('[*] LA CARPETA SI EXISTE')
 
       fs.stat(ruta_db, (err, fileStat) =>{
         if(err){
@@ -100,7 +100,7 @@ fs.stat(ruta_carpeta_dbs, (err, folderStat)=>{
           }
         }else{
           if(fileStat.isFile()){
-            console.log('[!] EL ARCHIVO db SI EXISTE')
+            console.log('[*] EL ARCHIVO db SI EXISTE')
             
               // --> TABLA PARA USUARIOS
 

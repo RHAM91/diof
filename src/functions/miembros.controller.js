@@ -1,15 +1,25 @@
 import { insertar__, leer__, ejecutar__ } from "./c"
 
-let registro = (data)=>{
-    let f = {
-        tabla: 'miembros',
-        datos: data
-    }
-    f.datos.activo = 1
-    f.datos.sistema = 'diof' // SE AGREGA EL REGISTRO DE SISTEMA DESDE EL "BACK"
+let registro = async (data)=>{
 
-    let x = insertar__(f)
-    return x
+    let s = await leer__('select * from miembros where dpi = ?', [data.dpi])
+
+    if (s.length == 0) {
+        
+        let f = {
+            tabla: 'miembros',
+            datos: data
+        }
+        f.datos.activo = 1
+        f.datos.sistema = 'diof' // SE AGREGA EL REGISTRO DE SISTEMA DESDE EL "BACK"
+    
+        let x = insertar__(f)
+        return x
+
+    }else{
+        return {codigo: 'FAIL', message: 'NO SE PUEDE INGRESAR DUPLICADO'}
+    }
+
 }
 
 let buscar = async (data) =>{
@@ -34,9 +44,9 @@ let actualizar = async (data) =>{
                                     dpi = ?`, [data.data.nombre, data.data.fecha_de_nacimiento, data.data.cargo, data.data.activo, id])
     
     if (q == 'SE HA EJECUTADO CONSULTA CORRECTAMENTE') {
-        return {message: 'ACTUALIZADO :)'}
+        return {codigo: 'OK', message: 'ACTUALIZADO :)'}
     }else{
-        return {message: 'OCURRIÓ UN PROBLEMA'}
+        return {codigo: 'FAIL', message: 'OCURRIÓ UN PROBLEMA'}
     }
 
 }
@@ -45,7 +55,7 @@ let borrar = async(data) =>{
 
     let r = await ejecutar__(`delete from miembros where dpi = ?`, [data.dpi])
 
-    return {message: 'BORRADO'}
+    return {codigo: 'OK', message: 'BORRADO'}
 
 }
 
